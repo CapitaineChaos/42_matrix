@@ -1,0 +1,9 @@
+[package]
+name = "ex00"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+
+[dependencies]
+utils = { path = "../utils" }
