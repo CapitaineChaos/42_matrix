@@ -55,11 +55,9 @@ where K: Copy + Mul<Output = K>,
         }
     } 
 
-    // m.scl(scalar); m.scl(&scalar);
-    pub fn scl<S>(&mut self, scalar: S)
-    where S: AsRef<K>,
-    {
-        self.scl_in_place(*scalar.as_ref());
+    // m.scl(scalar);
+    pub fn scl(&mut self, scalar: K) {
+        self.scl_in_place(scalar);
     }
 }
 

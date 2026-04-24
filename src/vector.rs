@@ -151,9 +151,7 @@ impl<K>  IndexMut<usize> for Vector<K> {
 // Implement Display for Vector to allow printing the vector in a readable format
 impl<K: ScalarFormat> fmt::Display for Vector<K> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        const BOLD_PURPLE: &str = "\x1b[1;35m";
-        const RESET: &str = "\x1b[0m";
-        write!(f, "{}Vector{}({}) [", BOLD_PURPLE, RESET, self.size)?;
+        write!(f, "[")?;
         for i in 0..self.size {
             if i > 0 {
                 write!(f, ", ")?;

@@ -203,7 +203,7 @@ impl<K> IndexMut<(usize, usize)> for Matrix<K> {
 // Implement Display for Matrix to allow printing the matrix in a readable format
 impl<K: ScalarFormat> fmt::Display for Matrix<K> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Matrix ({}x{}) [\n", self.rows, self.cols)?;
+        write!(f, "[\n")?;
         for row in 0..self.rows {
             write!(f, "  [")?;
             for col in 0..self.cols {

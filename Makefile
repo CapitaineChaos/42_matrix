@@ -23,7 +23,11 @@ remove-cargo:
 
 ex:
 	. ./scripts/cargo.sh
-	cargo run --bin ex${EX}
+	cargo run --release --bin ex_reel_${EX}
+
+bonus_ex:
+	. ./scripts/cargo.sh
+	cargo run --release --bin ex_complexe_${EX}
 
 
 .PHONY: all clean fclean remove-cargo ex

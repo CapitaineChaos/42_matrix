@@ -17,11 +17,7 @@ impl ScalarFormat for Reel {
 
 impl ScalarFormat for Complexe {
     fn fmt_scalar(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        if self.im < 0.0 {
-            write!(f, "{:>9.3} - {:>9.3}i", self.re, -self.im)
-        } else {
-            write!(f, "{:>9.3} + {:>9.3}i", self.re, self.im)
-        }
+        fmt::Display::fmt(self, f)
     }
 }
 
@@ -74,8 +70,24 @@ pub fn print_sep() {
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Complexe {
-    re: Reel,
-    im: Reel,
+    pub re: Reel,
+    pub im: Reel,
+}
+
+impl Complexe {
+    pub fn new(re: Reel, im: Reel) -> Self {
+        Self { re, im }
+    }
+}
+
+impl fmt::Display for Complexe {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if self.im < 0.0 {
+            write!(f, "{:>9.3} - {:>9.3}i", self.re, -self.im)
+        } else {
+            write!(f, "{:>9.3} + {:>9.3}i", self.re, self.im)
+        }
+    }
 }
 
 impl Default for Complexe {
