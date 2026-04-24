@@ -15,9 +15,13 @@ where K: Copy + Add<Output = K>,
         }
     }
 
-    pub fn add(&mut self, v: &Vector<K>) {
-        self.add_in_place(v);
+    // u.add(v); u.add(&v);
+    pub fn add<V>(&mut self, v: V)
+    where V: AsRef<Vector<K>>,
+    {
+        self.add_in_place(v.as_ref());
     }
+
 }
 
 // Implement subtraction
@@ -32,8 +36,11 @@ where K: Copy + Sub<Output = K>,
         }
     }
     
-    pub fn sub(&mut self, v: &Vector<K>) {
-        self.sub_in_place(v);
+    // u.sub(v); u.sub(v&);
+    pub fn sub<V>(&mut self, v: V)
+    where V: AsRef<Vector<K>>,
+    {
+        self.sub_in_place(v.as_ref());
     }
 }
 
@@ -47,8 +54,11 @@ where K: Copy + Mul<Output = K>,
         }
     }
 
-    pub fn scl(&mut self, scalar: K) {
-        self.scl_in_place(scalar);
+    // u.scl(scalar); u.scl(&scalar);
+    pub fn scl<S>(&mut self, scalar: S)
+    where S: AsRef<K>,
+    {
+        self.scl_in_place(*scalar.as_ref());
     }
 }
 

@@ -35,6 +35,13 @@ impl<K> Matrix<K> {
     }
 }
 
+// Implement AsRef to allow borrowing a Matrix as a reference to itself
+impl<K> AsRef<Matrix<K>> for Matrix<K> {
+    fn as_ref(&self) -> &Matrix<K> {
+        self
+    }
+}
+
 
 // Implement Clone for Matrix to allow cloning of matrixes
 impl <K: Clone + Default> Clone for Matrix<K> {

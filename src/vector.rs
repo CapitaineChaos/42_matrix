@@ -19,6 +19,14 @@ impl<K> Vector<K> {
 }
 
 
+// Implement AsRef to allow borrowing a Vector as a reference to itself
+impl<K> AsRef<Vector<K>> for Vector<K> {
+    fn as_ref(&self) -> &Vector<K> {
+        self
+    }
+}
+
+
 // Implement Clone for Vector to allow cloning of vectors
 impl<K: Clone + Default> Clone for Vector<K> {
     fn clone(&self) -> Self {

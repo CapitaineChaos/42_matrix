@@ -15,8 +15,11 @@ where K: Copy + Add<Output = K>,
         }
     }
 
-    pub fn add(&mut self, m: &Matrix<K>) {
-        self.add_in_place(m);
+    // m.add(m1); m.add(&m1);
+    pub fn add<M>(&mut self, m: M)
+    where M: AsRef<Matrix<K>>,
+    {
+        self.add_in_place(m.as_ref());
     }
 }
 
@@ -33,8 +36,11 @@ where K: Copy + Sub<Output = K>,
         }
     }
 
-    pub fn sub(&mut self, m: &Matrix<K>) {
-        self.sub_in_place(m);
+    // m.sub(m1); m.sub(&m1);
+    pub fn sub<M>(&mut self, m: M)
+    where M: AsRef<Matrix<K>>,
+    {
+        self.sub_in_place(m.as_ref());
     }
 }
 
@@ -49,8 +55,11 @@ where K: Copy + Mul<Output = K>,
         }
     } 
 
-    pub fn scl(&mut self, scalar: K) {
-        self.scl_in_place(scalar);
+    // m.scl(scalar); m.scl(&scalar);
+    pub fn scl<S>(&mut self, scalar: S)
+    where S: AsRef<K>,
+    {
+        self.scl_in_place(*scalar.as_ref());
     }
 }
 
