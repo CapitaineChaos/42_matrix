@@ -1,9 +1,12 @@
 #!/bin/bash
 
 
-# Cargo déjà disponible dans le PATH courant
-if command -v cargo >/dev/null 2>&1; then
-    echo "Using existing cargo: $(command -v cargo)"
+# Cargo déjà disponible dans le PATH courant (ou dans /usr/bin)
+if command -v cargo >/dev/null 2>&1 || [ -x /usr/bin/cargo ]; then
+    CARGO_BIN=$(command -v cargo 2>/dev/null || echo "/usr/bin/cargo")
+    echo "Using existing cargo: $CARGO_BIN"
+    # S'assurer que cargo est bien dans le PATH
+    export PATH="$(dirname "$CARGO_BIN"):$PATH"
     return 0 2>/dev/null || exit 0
 fi
 
