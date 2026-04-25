@@ -1,7 +1,7 @@
 use matrix42::matrix::Matrix;
 use matrix42::vector::Vector;
-use matrix42::common::Complexe;
-use matrix42::common::{print_header, print_sep, print_title};
+use matrix42::complexe::Complexe;
+use matrix42::display::{print_header, print_sep, print_title};
 
 fn main() {
     

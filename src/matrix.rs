@@ -2,7 +2,7 @@ use std::alloc::{alloc, dealloc, handle_alloc_error, Layout};
 use std::fmt;
 use std::ops::{Index, IndexMut};
 
-use crate::common::ScalarFormat;
+use crate::scalar::ScalarFormat;
 
 
 #[derive(Debug)]
@@ -46,7 +46,7 @@ impl<K> AsRef<Matrix<K>> for Matrix<K> {
 // Implement Clone for Matrix to allow cloning of matrixes
 impl <K: Clone + Default> Clone for Matrix<K> {
     fn clone(&self) -> Self {
-        let mut out = Matrix::new(self.rows, self.cols);
+        let mut out = Matrix::new(self.shape());
 
         for i in 0..self.size() {
             out[i] = self[i].clone();
@@ -59,7 +59,8 @@ impl <K: Clone + Default> Clone for Matrix<K> {
 
 // Implement From trait to allow conversion from scratch with dimensions to a Matrix
 impl<K: Default> Matrix<K> {
-    pub fn new(rows: usize, cols: usize) -> Self {
+    pub fn new(shape: (usize, usize)) -> Self {
+        let (rows, cols) = shape;
         let len = rows * cols;
 
         if len == 0 {

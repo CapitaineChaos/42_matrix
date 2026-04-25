@@ -1,9 +1,9 @@
 use std::ops::{Add, Sub, Mul};
 
-use crate::{common::{Complexe, Reel}, matrix::Matrix};
-
+use crate::matrix::Matrix;
 
 // Implement addition
+// (m1+m2)ᵢⱼ = m1ᵢⱼ + m2ᵢⱼ
 impl<K> Matrix<K>
 where K: Copy + Add<Output = K>,
 {
@@ -25,6 +25,7 @@ where K: Copy + Add<Output = K>,
 
 
 // Implement subtraction
+// (m1-m2)ᵢⱼ = m1ᵢⱼ - m2ᵢⱼ
 impl<K> Matrix<K>
 where K: Copy + Sub<Output = K>,
 {
@@ -46,6 +47,7 @@ where K: Copy + Sub<Output = K>,
 
 
 // Implement scalar multiplication
+// (s * m)ᵢⱼ = s * mᵢⱼ
 impl<K> Matrix<K>
 where K: Copy + Mul<Output = K>,
 {
@@ -143,50 +145,5 @@ where K: Copy + std::ops::Mul<Output = K>,
     fn mul(mut self, rhs: K) -> Self::Output {
         self.scl_in_place(rhs);
         self
-    }
-}
-
-
-// m = R_scalar * &m1;
-impl Mul<&Matrix<Reel>> for Reel {
-    type Output = Matrix<Reel>;
-
-    fn mul(self, rhs: &Matrix<Reel>) -> Self::Output {
-        let mut out = rhs.clone();
-        out.scl_in_place(self);
-        out
-        }
-}
-
-
-// m = R_scalar * m1;
-impl Mul<Matrix<Reel>> for Reel {
-    type Output = Matrix<Reel>;
-
-    fn mul(self, mut rhs: Matrix<Reel>) -> Self::Output {
-        rhs.scl_in_place(self);
-        rhs
-    }
-}
-
-
-// m = C_scalar * &m1;
-impl Mul<&Matrix<Complexe>> for Complexe {
-    type Output = Matrix<Complexe>;
-
-    fn mul(self, rhs: &Matrix<Complexe>) -> Self::Output {
-        let mut out = rhs.clone();
-        out.scl_in_place(self);
-        out
-    }
-}
-
-// m = C_scalar * m1;
-impl Mul<Matrix<Complexe>> for Complexe {
-    type Output = Matrix<Complexe>;
-
-    fn mul(self, mut rhs: Matrix<Complexe>) -> Self::Output {
-        rhs.scl_in_place(self);
-        rhs
     }
 }

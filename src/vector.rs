@@ -2,7 +2,7 @@ use std::alloc::{alloc, dealloc, handle_alloc_error, Layout};
 use std::fmt;
 use std::ops::{Index, IndexMut};
 
-use crate::common::ScalarFormat;
+use crate::scalar::ScalarFormat;
 
 
 #[derive(Debug)]

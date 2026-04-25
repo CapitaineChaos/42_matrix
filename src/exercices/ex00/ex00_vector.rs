@@ -1,9 +1,9 @@
 use std::ops::{Add, Sub, Mul};
 
-use crate::{common::{Complexe, Reel}, vector::Vector};
-
+use crate::vector::Vector;
 
 // Implement addition
+// (u+v)ᵢ = uᵢ + vᵢ
 impl<K> Vector<K>
 where K: Copy + Add<Output = K>,
 {
@@ -25,6 +25,7 @@ where K: Copy + Add<Output = K>,
 }
 
 // Implement subtraction
+// (u-v)ᵢ = uᵢ - vᵢ
 impl<K> Vector<K>
 where K: Copy + Sub<Output = K>,
 {
@@ -36,7 +37,7 @@ where K: Copy + Sub<Output = K>,
         }
     }
     
-    // u.sub(v); u.sub(v&);
+    // u.sub(v); u.sub(&v);
     pub fn sub<V>(&mut self, v: V)
     where V: AsRef<Vector<K>>,
     {
@@ -45,6 +46,7 @@ where K: Copy + Sub<Output = K>,
 }
 
 // Implement scalar multiplication
+// (s * u)ᵢ = s * uᵢ
 impl<K> Vector<K>
 where K: Copy + Mul<Output = K>,
 {
@@ -146,49 +148,5 @@ where K: Copy + std::ops::Mul<Output = K>,
     fn mul(mut self, rhs: K) -> Self::Output {
         self.scl_in_place(rhs);
         self
-    }
-}
-
-
-// w = R_scalar * &u;
-impl Mul<&Vector<Reel>> for Reel {
-    type Output = Vector<Reel>;
-
-    fn mul(self, rhs: &Vector<Reel>) -> Self::Output {
-        let mut out = rhs.clone();
-        out.scl_in_place(self);
-        out
-    }
-}
-
-// w = R_scalar * u;
-impl Mul<Vector<Reel>> for Reel {
-    type Output = Vector<Reel>;
-
-    fn mul(self, mut rhs: Vector<Reel>) -> Self::Output {
-        rhs.scl_in_place(self);
-        rhs
-    }
-}
-
-// w = C_scalar * &u;
-impl Mul<&Vector<Complexe>> for Complexe {
-    type Output = Vector<Complexe>;
-
-    fn mul(self, rhs: &Vector<Complexe>) -> Self::Output {
-        let mut out = rhs.clone();
-        out.scl_in_place(self);
-        out
-    }
-}
-
-
-// w = C_scalar * u;
-impl Mul<Vector<Complexe>> for Complexe {
-    type Output = Vector<Complexe>;
-
-    fn mul(self, mut rhs: Vector<Complexe>) -> Self::Output {
-        rhs.scl_in_place(self);
-        rhs
     }
 }
