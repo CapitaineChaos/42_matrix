@@ -6,6 +6,9 @@ EX := $(word 2,$(MAKECMDGOALS))
 all:
 	@echo "Matrix 42"
 
+clippy:
+	. ./scripts/cargo.sh
+	cargo clippy
 
 clean:
 	. ./scripts/cargo.sh
@@ -30,4 +33,4 @@ bonus_ex:
 	cargo run --release --bin ex_complexe_${EX}
 
 
-.PHONY: all clean fclean remove-cargo ex
+.PHONY: all clean fclean remove-cargo ex clippy
