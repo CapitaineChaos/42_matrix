@@ -26,11 +26,11 @@ remove-cargo:
 
 ex:
 	. ./scripts/cargo.sh
-	cargo run --release --bin ex_reel_${EX}
+	cargo run --release --example ex${EX}
 
 bonus_ex:
 	. ./scripts/cargo.sh
-	cargo run --release --bin ex_complexe_${EX}
+	cargo run --release --example ex${EX}_bonus
 
 
-.PHONY: all clean fclean remove-cargo ex clippy
+.PHONY: all clean fclean remove-cargo ex bonus_ex clippy

@@ -43,4 +43,3 @@ pub fn print_sep() {
     let color_code: &str = color_code(2);
     println!("\n{}{}{}\n", color_code, c.to_string().repeat(count), "\x1b[0m");
 }
-

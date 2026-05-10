@@ -1,9 +1,8 @@
+pub mod core;
 pub mod scalar;
-pub mod vector;
-pub mod matrix;
-pub mod display;
-pub mod complexe;
-pub mod exercices;
+pub mod ops;
+pub mod prelude;
 
-pub use crate::exercices::ex01::linear_combination::linear_combination;
-pub use crate::exercices::ex01::linear_combination::LinearCombination;
+pub use core::{Matrix, Vector};
+pub use scalar::Complex;
+pub use ops::{linear_combination, LinearCombination};
