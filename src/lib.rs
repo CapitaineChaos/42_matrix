@@ -1,8 +1,8 @@
-pub mod core;
-pub mod scalar;
-pub mod ops;
+pub mod types;
+pub mod impls;
+pub mod algorithms;
+pub mod traits;
 pub mod prelude;
 
-pub use core::{Matrix, Vector};
-pub use scalar::Complex;
-pub use ops::{linear_combination, LinearCombination};
+pub use types::{Complex, Matrix, Vector};
+pub use algorithms::linear_combination;

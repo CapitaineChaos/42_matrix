@@ -1,22 +1,9 @@
 use std::fmt;
 use std::ops::{Add, Div, Mul, Sub};
-use num_traits::MulAdd;
 
-// ============================================================
-// Struct
-// ============================================================
+use num_traits::{MulAdd, Zero};
 
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub struct Complex {
-    pub re: f32,
-    pub im: f32,
-}
-
-impl Complex {
-    pub fn new(re: f32, im: f32) -> Self {
-        Self { re, im }
-    }
-}
+use crate::types::Complex;
 
 // ============================================================
 // Standard traits
@@ -39,7 +26,7 @@ impl fmt::Display for Complex {
 }
 
 // ============================================================
-// Arithmetic — (a+bi) ± (c+di), (a+bi)(c+di), (a+bi)/(c+di)
+// Arithmetic - (a+bi) ± (c+di), (a+bi)(c+di), (a+bi)/(c+di)
 // ============================================================
 
 // (a+bi)+(c+di) = (a+c)+(b+d)i
@@ -91,5 +78,15 @@ impl MulAdd for Complex {
 
     fn mul_add(self, a: Self, b: Self) -> Self {
         self * a + b
+    }
+}
+
+impl Zero for Complex {
+    fn zero() -> Self {
+        Self { re: 0.0, im: 0.0 }
+    }
+
+    fn is_zero(&self) -> bool {
+        self.re == 0.0 && self.im == 0.0
     }
 }

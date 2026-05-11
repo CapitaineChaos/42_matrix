@@ -10,6 +10,10 @@ clippy:
 	. ./scripts/cargo.sh
 	cargo clippy
 
+check:
+	. ./scripts/cargo.sh
+	cargo check
+
 clean:
 	. ./scripts/cargo.sh
 	cargo clean
@@ -21,9 +25,8 @@ fclean: clean
 	@true
 
 remove-cargo:
-	rm -rf /home/$USER/goinfre/.cargo
-	rm -rf /home/$USER/goinfre/.rustup
-
+	rm -rf /tmp/.cargo
+	rm -rf /tmp/.rustup
 ex:
 	. ./scripts/cargo.sh
 	cargo run --release --example ex${EX}

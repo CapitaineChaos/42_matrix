@@ -1,6 +1,4 @@
-use std::fmt;
 use std::iter;
-use std::ops::{Index, IndexMut};
 
 // ============================================================
 // Struct
@@ -49,40 +47,5 @@ impl<K, const N: usize> From<[K; N]> for Vector<K> {
             size: N,
             data: array.into(),
         }
-    }
-}
-
-// ============================================================
-// Indexing
-// ============================================================
-
-impl<K> Index<usize> for Vector<K> {
-    type Output = K;
-
-    fn index(&self, index: usize) -> &K {
-        &self.data[index]
-    }
-}
-
-impl<K> IndexMut<usize> for Vector<K> {
-    fn index_mut(&mut self, index: usize) -> &mut K {
-        &mut self.data[index]
-    }
-}
-
-// ============================================================
-// Display
-// ============================================================
-
-impl<K: fmt::Display> fmt::Display for Vector<K> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "[")?;
-        for i in 0..self.size {
-            if i > 0 {
-                write!(f, ", ")?;
-            }
-            write!(f, "{}", self.data[i])?;
-        }
-        write!(f, "]")
     }
 }
