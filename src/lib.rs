@@ -6,3 +6,4 @@ pub mod prelude;
 
 pub use types::{Complex, Matrix, Vector};
 pub use algorithms::linear_combination;
+pub use algorithms::linear_interpolation::lerp;

@@ -37,12 +37,16 @@ impl<K: LinearElement> LinearCombination<K> for Vector<K> {
 impl<K: LinearElement> LinearCombination<K> for Matrix<K> {
     fn lc(matrices: &[&Self], coeffs: &[K]) -> Self {
         let shape = matrices[0].shape();
-        let size = matrices[0].size();
+        // let size = matrices[0].size();
         let mut result = Matrix::new(shape);
-        for (m, &c) in matrices.iter().zip(coeffs.iter()) {
-            for j in 0..size {
-                result[j] = c.mul_add(m[j], result[j]);
+        for (j, cell) in result.data.iter_mut().enumerate() {
+            let mut acc = K::default();
+
+            for (m, &c) in matrices.iter().zip(coeffs.iter()) {
+                acc = c.mul_add(m[j], acc);
             }
+
+            *cell = acc;
         }
         result
     }
