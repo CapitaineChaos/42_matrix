@@ -1,13 +1,13 @@
 #[path = "common/mod.rs"]
 mod common;
 
-use common::display::{print_header, print_sep, print_title};
-use matrix42::{Vector, dot_product};
+use common::display::{print_header};
+use matrix42::Vector;
 
 fn main() {
     print_header("Ex03 : Dot Product");
 
-    let mut u = Vector::from([2., 3.]);
+    let u = Vector::from([2., 3.]);
     let v = Vector::from([4., 5.]);
     println!("{}", u.dot(&v));
 

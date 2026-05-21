@@ -1,0 +1,12 @@
+{
+    "rust-analyzer.cargo.extraEnv": {
+        "CARGO_HOME": "/tmp/.cargo",
+        "RUSTUP_HOME": "/tmp/.rustup"
+    },
+    "rust-analyzer.rustup.toolchain": "stable",
+    "rust-analyzer.server.extraEnv": {
+        "CARGO_HOME": "/tmp/.cargo",
+        "RUSTUP_HOME": "/tmp/.rustup",
+        "PATH": "/tmp/.cargo/bin:/usr/local/bin:/usr/bin:/bin"
+    }
+}

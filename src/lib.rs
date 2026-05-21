@@ -8,3 +8,4 @@ pub use types::{Complex, Matrix, Vector};
 pub use algorithms::linear_combination;
 pub use algorithms::linear_interpolation::lerp;
 pub use algorithms::dot_product::dot_product;
+pub use algorithms::norm::{norm, norm_1, norm_inf};

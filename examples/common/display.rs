@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 fn color_code(color: u8) -> &'static str {
     match color {
         0 => "\x1b[1;31m", // Red
