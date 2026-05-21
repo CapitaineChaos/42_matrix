@@ -1,41 +1,44 @@
-use crate::traits::LinearElement;
-use crate::types::{Matrix, Vector};
+use crate::types::{Complex, Matrix, Vector};
 
 // ============================================================
 // Trait
 // ============================================================
 
-pub trait Lerp<Rhs, K> {
+pub trait Lerp {
     type Output;
 
-    fn lerp(self, rhs: Rhs, t: K) -> Self::Output;
+    fn lerp(self, rhs: Self, t: f32) -> Self::Output;
 }
 
 // ============================================================
 // Public function
 // ============================================================
 
-pub fn lerp<U, V, K>(u: U, v: V, t: K) -> <U as Lerp<V, K>>::Output
-where
-    U: Lerp<V, K>,
-{
+pub fn lerp<V: Lerp>(u: V, v: V, t: f32) -> V::Output {
     u.lerp(v, t)
 }
 
+// ============================================================
+// f32
+// ============================================================
 
-impl<K: LinearElement> Lerp<K, K> for K {
-    type Output = K;
+impl Lerp for f32 {
+    type Output = f32;
 
-    fn lerp(self, rhs: K, t: K) -> K {
+    fn lerp(self, rhs: f32, t: f32) -> f32 {
         self + t * (rhs - self)
     }
 }
 
-impl Lerp<Complex, f32> for Complex {
+// ============================================================
+// Complex
+// ============================================================
+
+impl Lerp for Complex {
     type Output = Complex;
 
     fn lerp(self, rhs: Complex, t: f32) -> Complex {
-        self + (rhs - self) * t
+        self + (rhs - self) * Complex { re: t, im: 0.0 }
     }
 }
 
@@ -43,19 +46,15 @@ impl Lerp<Complex, f32> for Complex {
 // Vector
 // ============================================================
 
-impl<'a, K: LinearElement> Lerp<&'a Vector<K>, K> for &'a Vector<K> {
-    type Output = Vector<K>;
+impl Lerp for Vector<f32> {
+    type Output = Vector<f32>;
 
-    fn lerp(self, rhs: &'a Vector<K>, t: K) -> Vector<K> {
+    fn lerp(self, rhs: Vector<f32>, t: f32) -> Vector<f32> {
         assert_eq!(self.size(), rhs.size());
-
-        let mut result = Vector::new(self.size());
-
-        for (j, cell) in result.data.iter_mut().enumerate() {
-            *cell = lerp(self[j], rhs[j], t);
+        Vector {
+            size: self.size,
+            data: self.data.iter().zip(&rhs.data).map(|(&a, &b)| lerp(a, b, t)).collect(),
         }
-
-        result
     }
 }
 
@@ -63,18 +62,15 @@ impl<'a, K: LinearElement> Lerp<&'a Vector<K>, K> for &'a Vector<K> {
 // Matrix
 // ============================================================
 
-impl<'a, K: LinearElement> Lerp<&'a Matrix<K>, K> for &'a Matrix<K> {
-    type Output = Matrix<K>;
+impl Lerp for Matrix<f32> {
+    type Output = Matrix<f32>;
 
-    fn lerp(self, rhs: &'a Matrix<K>, t: K) -> Matrix<K> {
+    fn lerp(self, rhs: Matrix<f32>, t: f32) -> Matrix<f32> {
         assert_eq!(self.shape(), rhs.shape());
-
-        let mut result = Matrix::new(self.shape());
-
-        for (j, cell) in result.data.iter_mut().enumerate() {
-            *cell = lerp(self[j], rhs[j], t);
+        Matrix {
+            rows: self.rows,
+            cols: self.cols,
+            data: self.data.iter().zip(&rhs.data).map(|(&a, &b)| lerp(a, b, t)).collect(),
         }
-
-        result
     }
 }

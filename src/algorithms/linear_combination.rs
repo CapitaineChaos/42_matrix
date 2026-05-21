@@ -19,11 +19,10 @@ pub fn linear_combination<K, T: LinearCombination<K>>(items: &[&T], coeffs: &[K]
 
 impl<K: LinearElement> LinearCombination<K> for Vector<K> {
     fn lc(vectors: &[&Self], coeffs: &[K]) -> Self {
-        let size = vectors[0].size();
-        let mut result = Vector::new(size);
+        let mut result = Vector::new(vectors[0].size());
         for (v, &c) in vectors.iter().zip(coeffs.iter()) {
-            for j in 0..size {
-                result[j] = c.mul_add(v[j], result[j]);
+            for (res, &val) in result.data.iter_mut().zip(v.data.iter()) {
+                *res = c.mul_add(val, *res);
             }
         }
         result
@@ -36,17 +35,11 @@ impl<K: LinearElement> LinearCombination<K> for Vector<K> {
 
 impl<K: LinearElement> LinearCombination<K> for Matrix<K> {
     fn lc(matrices: &[&Self], coeffs: &[K]) -> Self {
-        let shape = matrices[0].shape();
-        // let size = matrices[0].size();
-        let mut result = Matrix::new(shape);
-        for (j, cell) in result.data.iter_mut().enumerate() {
-            let mut acc = K::default();
-
-            for (m, &c) in matrices.iter().zip(coeffs.iter()) {
-                acc = c.mul_add(m[j], acc);
+        let mut result = Matrix::new(matrices[0].shape());
+        for (m, &c) in matrices.iter().zip(coeffs.iter()) {
+            for (res, &val) in result.data.iter_mut().zip(m.data.iter()) {
+                *res = c.mul_add(val, *res);
             }
-
-            *cell = acc;
         }
         result
     }
