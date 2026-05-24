@@ -5,6 +5,7 @@ EX := $(word 2,$(MAKECMDGOALS))
 
 all:
 	@echo "Matrix 42"
+	. ./scripts/cargo.sh
 
 clippy:
 	. ./scripts/cargo.sh
